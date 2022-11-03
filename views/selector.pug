@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+
+  - image_names = ["tunnel-1", "tunnel-2", "tunnel-3", "tunnel-4", "tunnel-5"]
+
+  - for(let i=0; i<3; i++) {
+    - let rand = Math.floor(Math.random()*5)
+    img(src=`/images/tunnel-${rand+1}.jpg` , alt=`tunnel-${rand+1} image`, height="300", width="300", style="padding:5px")
+  - }
