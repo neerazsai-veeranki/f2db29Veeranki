@@ -1,10 +1,30 @@
 var Tunnel = require('../models/tunnels'); 
  
 // List of all Tunnels 
-exports.tunnel_list = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Tunnel list'); 
+exports.tunnel_list = async function(req, res) {
+    try {
+        theTunnel = await Tunnel.find();
+        res.send(theTunnel);
+    } catch (error) {
+        res.status(500);
+        res.send(`{"error": ${error}}`);
+    } 
+    // res.send('NOT IMPLEMENTED: Tunnel list'); 
 }; 
  
+// VIEWS 
+// Handle a show all view 
+exports.tunnel_view_all_Page = async function(req, res) { 
+    try{ 
+        theTunnel = await Tunnel.find(); 
+        res.render('tunnels', { title: 'Costume Search Results', results: theTunnel }); 
+    } 
+    catch(error){ 
+        res.status(500); 
+        res.send(`{"error": ${error}}`); 
+    }   
+}; 
+
 // for a specific Tunnel. 
 exports.tunnel_detail = function(req, res) { 
     res.send('NOT IMPLEMENTED: Tunnel detail: ' + req.params.id); 

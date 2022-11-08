@@ -3,15 +3,15 @@ extends layout
 block content
   h1= title
 
-  - var results = [{lenOfTunnel:2, noOfLanes:6, tunnelName:"highland", isOperational:true}, {lenOfTunnel:4, noOfLanes:4, tunnelName:"robust", isOperational:true}, {lenOfTunnel:1, noOfLanes:8, tunnelName:"oversea", isOperational:true}]
+  - var items = results
 
   mixin list_div
-    each item,i in results
+    each item,i in items
       div(class="row", onClick=`buy(${i})`)
-        div(class="col-sm-2")=item.lenOfTunnel
-        div(class="col-sm-2")=item.noOfLanes
-        div(class="col-sm-2")=item.tunnelName
-        div(class="col-sm-2")=item.isOperational
+        div(class="col-sm-2")=item.len_of_tunnel
+        div(class="col-sm-2")=item.no_of_lanes
+        div(class="col-sm-2")=item.tunnel_name
+        div(class="col-sm-2")=item.is_operational
   
   div(class="container-fluid")
     +list_div
