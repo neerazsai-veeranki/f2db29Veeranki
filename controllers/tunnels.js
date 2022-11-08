@@ -31,8 +31,21 @@ exports.tunnel_detail = function(req, res) {
 }; 
  
 // Handle Tunnel create on POST. 
-exports.tunnel_create_post = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Tunnel create POST'); 
+exports.tunnel_create_post = async function(req, res) { 
+    console.log(req.body);
+    let doc = new Tunnel();
+    doc.len_of_tunnel = req.body.len_of_tunnel
+    doc.no_of_lanes = req.body.no_of_lanes
+    doc.tunnel_name = req.body.tunnel_name
+    doc.is_operational = req.body.is_operational
+    try{ 
+        let result = await doc.save(); 
+        res.send(result); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }
 }; 
  
 // Handle Tunnel delete form on DELETE. 
