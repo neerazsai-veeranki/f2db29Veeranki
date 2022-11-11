@@ -17,7 +17,7 @@ exports.tunnel_list = async function(req, res) {
 exports.tunnel_view_all_Page = async function(req, res) { 
     try{ 
         theTunnel = await Tunnel.find(); 
-        res.render('tunnels', { title: 'Costume Search Results', results: theTunnel }); 
+        res.render('tunnels', { title: 'Tunnel Search Results', results: theTunnel }); 
     } 
     catch(error){ 
         res.status(500); 
@@ -26,8 +26,16 @@ exports.tunnel_view_all_Page = async function(req, res) {
 }; 
 
 // for a specific Tunnel. 
-exports.tunnel_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Tunnel detail: ' + req.params.id); 
+exports.tunnel_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Tunnel.findById(req.params.id) 
+        console.log(result)
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
 }; 
  
 // Handle Tunnel create on POST. 
@@ -54,6 +62,26 @@ exports.tunnel_delete = function(req, res) {
 }; 
  
 // Handle Tunnel update form on PUT. 
-exports.tunnel_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Tunnel update PUT' + req.params.id); 
+exports.tunnel_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`) 
+    let toUpdate = await Tunnel.findById( req.params.id) 
+    try { 
+        // Do updates of properties 
+        if(req.body.len_of_tunnel)  
+            toUpdate.len_of_tunnel = req.body.len_of_tunnel; 
+        if(req.body.no_of_lanes) 
+            toUpdate.no_of_lanes = req.body.no_of_lanes; 
+        if(req.body.tunnel_name) 
+            toUpdate.tunnel_name = req.body.tunnel_name; 
+        if(req.body.is_operational) 
+            toUpdate.is_operational = true; 
+        else
+            toUpdate.is_operational = false;
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`); 
+    } 
 }; 
