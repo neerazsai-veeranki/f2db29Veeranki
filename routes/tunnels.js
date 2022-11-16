@@ -9,10 +9,10 @@ router.get('/', tunnels_controllers.tunnel_view_all_Page);
 router.get('/create', tunnels_controllers.tunnel_create_Page);
 
 // PUT/UPDATE request to update Tunnel.  
-router.put('/update/:id', tunnels_controllers.tunnel_update_put); 
+router.get('/update', tunnels_controllers.tunnel_update_Page); 
 
 // GET request for one Tunnel. 
-router.get('/detail/:id', tunnels_controllers.tunnel_view_one_Page); 
+router.get('/detail', tunnels_controllers.tunnel_view_one_Page); 
 
 // DELETE request for one Tunnel. 
 router.delete('/delete/:id', tunnels_controllers.tunnel_detail); 

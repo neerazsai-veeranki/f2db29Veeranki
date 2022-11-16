@@ -96,9 +96,9 @@ exports.tunnel_update_put = async function(req, res) {
 
 // Handle a show one view with id specified by query 
 exports.tunnel_view_one_Page = async function(req, res) {
-    console.log("single view for id "  + req.params.id) 
+    console.log("single view for id "  + req.query.id) 
     try{ 
-        result = await Tunnel.findById(req.params.id) 
+        result = await Tunnel.findById(req.query.id) 
         console.log(result)
         res.render('tunneldetail',  { title: 'Tunnel Detail', toShow: result }); 
     } 
@@ -115,6 +115,20 @@ exports.tunnel_create_Page =  function(req, res) {
     console.log("create view") 
     try{ 
         res.render('tunnelcreate', { title: 'Tunnel Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle building the view for updating a costume. 
+// query provides the id 
+exports.tunnel_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Tunnel.findById(req.query.id)
+        res.render('tunnelupdate', { title: 'Tunnel Update', toShow: result }); 
     } 
     catch(err){ 
         res.status(500) 
