@@ -3,25 +3,27 @@ extends layout
 block content 
   h1= title 
  
-  - let tunnelid = toShow._id 
-  - let lenOfTunnel = toShow.len_of_tunnel 
-  - let noOfLanes = toShow.no_of_lanes 
-  - let tunnelName = toShow.tunnel_name
-  - let isOperational = toShow.is_operational 
-
-  div 
-    div.row 
-      div(class='tunnelAttr') Tunnel ID is: 
-      div #{tunnelid} 
-    div.row 
-      div(class='tunnelAttr') Tunnel Length is (in Miles): 
-      div #{lenOfTunnel} 
-    div.row 
-      div(class='tunnelAttr') No of Lanes in the Tunnel: 
-      div #{noOfLanes} 
-    div.row 
-      div(class='tunnelAttr') Tunnel Name is: 
-      div #{tunnelName}
-    div.row 
-      div(class='tunnelAttr') Tunnel Operational Status is: 
-      div #{isOperational} 
+  if (toShow == null) 
+    h2 No instance to Display 
+  else 
+    - let tunnelid = toShow._id 
+    - let lenOfTunnel = toShow.len_of_tunnel 
+    - let noOfLanes = toShow.no_of_lanes 
+    - let tunnelName = toShow.tunnel_name
+    - let isOperational = toShow.is_operational 
+    div 
+      div.row 
+        div(class='tunnelAttr') Tunnel ID is: 
+        div #{tunnelid} 
+      div.row 
+        div(class='tunnelAttr') Tunnel Length is (in Miles): 
+        div #{lenOfTunnel} 
+      div.row 
+        div(class='tunnelAttr') No of Lanes in the Tunnel: 
+        div #{noOfLanes} 
+      div.row 
+        div(class='tunnelAttr') Tunnel Name is: 
+        div #{tunnelName}
+      div.row 
+        div(class='tunnelAttr') Tunnel Operational Status is: 
+        div #{isOperational} 

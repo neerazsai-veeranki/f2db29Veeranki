@@ -3,39 +3,41 @@ extends layout
 block content 
   h1= title 
  
-  - let tunnelid = toShow._id 
-  - let lenOfTunnel = toShow.len_of_tunnel 
-  - let noOfLanes = toShow.no_of_lanes 
-  - let tunnelName = toShow.tunnel_name 
-  - let isOperational = toShow.is_operational 
-   
-  div.row(class='mb-2') 
-    div.mr-1 ID is 
-    div #{tunnelid} 
-  - let actionid = "/resource/tunnels/" + tunnelid 
-  form(id='tunnelForm', action= actionid, method="PUT") 
-    div.form-group 
-        label.tunnelAttr(for='len_of_tunnel') Tunnel Length : 
-        input#len_of_tunnel(type='number', name='len_of_tunnel', value= lenOfTunnel ) 
-    div.form-group 
-        label.tunnelAttr(for='no_of_lanes') No of Lanes in the Tunnel 
-        input#no_of_lanes(type='number', name='no_of_lanes', value= noOfLanes ) 
-    div.form-group 
-        label.tunnelAttr(for='tunnel_name') Tunnel Name :
-        input#tunnel_name(type='text', name='tunnel_name', value= tunnelName ) 
-    div.form-group 
-        label.tunnelAttr(for='is_operational') Tunnel is operational :
-        if  isOperational
-            input#is_operational_true(type='checkbox', name='is_operational' value="true" checked)   
-            label.tunnelAttr(for='is_operational') True
-            input#is_operational_false(type='checkbox', name='is_operational' value="false") 
-            label.tunnelAttr(for='is_operational') False
-        else
-            input#is_operational_true(type='checkbox', name='is_operational' value="true")   
-            label.tunnelAttr(for='is_operational') True
-            input#is_operational_false(type='checkbox', name='is_operational' value="false" checked) 
-            label.tunnelAttr(for='is_operational') False
-    input(type="submit") 
+  if (toShow == null) 
+    h2 No instance to Update 
+  else 
+    - let tunnelid = toShow._id 
+    - let lenOfTunnel = toShow.len_of_tunnel 
+    - let noOfLanes = toShow.no_of_lanes 
+    - let tunnelName = toShow.tunnel_name 
+    - let isOperational = toShow.is_operational 
+    div.row(class='mb-2') 
+      div.mr-1 ID is 
+      div #{tunnelid} 
+    - let actionid = "/resource/tunnels/" + tunnelid 
+    form(id='tunnelForm', action= actionid, method="PUT") 
+      div.form-group 
+          label.tunnelAttr(for='len_of_tunnel') Tunnel Length : 
+          input#len_of_tunnel(type='number', name='len_of_tunnel', value= lenOfTunnel ) 
+      div.form-group 
+          label.tunnelAttr(for='no_of_lanes') No of Lanes in the Tunnel 
+          input#no_of_lanes(type='number', name='no_of_lanes', value= noOfLanes ) 
+      div.form-group 
+          label.tunnelAttr(for='tunnel_name') Tunnel Name :
+          input#tunnel_name(type='text', name='tunnel_name', value= tunnelName ) 
+      div.form-group 
+          label.tunnelAttr(for='is_operational') Tunnel is operational :
+          if  isOperational
+              input#is_operational_true(type='checkbox', name='is_operational' value="true" checked)   
+              label.tunnelAttr(for='is_operational') True
+              input#is_operational_false(type='checkbox', name='is_operational' value="false") 
+              label.tunnelAttr(for='is_operational') False
+          else
+              input#is_operational_true(type='checkbox', name='is_operational' value="true")   
+              label.tunnelAttr(for='is_operational') True
+              input#is_operational_false(type='checkbox', name='is_operational' value="false" checked) 
+              label.tunnelAttr(for='is_operational') False
+      input(type="submit") 
  
   script. 
     document.forms['tunnelForm'].addEventListener('submit', (event) => { 

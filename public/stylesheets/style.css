@@ -7,6 +7,33 @@ a {
   color: #00B7FF;
 }
 
+.row-style {
+  background-color: #ffe6cc;
+  text-align: center;
+  padding: 5px;
+  margin: 3px;
+}
+
+.row-style-head {
+  background-color: #d9d9d9;
+  text-align: center;
+  padding: 5px;
+  margin: 3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  text-align: center;
+  background-color: #cceeff;
+  font-family: "Lucida Console", "Courier New", monospace;
+  padding: 10px;
+  border: 6px solid #cccccc;
+}
+
+.col-style {
+  margin: 1px;
+}
+
 .tunnelAttr { 
   background-color: aquamarine; 
   width: 300px; 
