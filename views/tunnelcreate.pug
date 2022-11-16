@@ -1,0 +1,47 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='TunnelForm', action="/resource/tunnels", method="POST") 
+    div.form-group 
+        label.tunnelAttr(for='len_of_tunnel') Tunnel length : 
+        input#len_of_tunnel(type='number', name='len_of_tunnel') 
+    div.form-group 
+        label.tunnelAttr(for='no_of_lanes') Tunnel no_of_lanes : 
+        input#no_of_lanes(type='number', name='no_of_lanes') 
+    div.form-group 
+        label.tunnelAttr(for='tunnel_name') Tunnel tunnel_name : 
+        input#tunnel_name(type='text', name='tunnel_name') 
+    div.form-group 
+        label.tunnelAttr(for='is_operational') Tunnel is_operational : 
+        input#is_operational_true(type='checkbox', name='is_operational' value="true")   
+        label.tunnelAttr(for='is_operational') True
+        input#is_operational_false(type='checkbox', name='is_operational' value="false") 
+        label.tunnelAttr(for='is_operational') False
+    input(type="submit") 
+ 
+  script. 
+    //-   console.log(new Tunnel(event.target))
+    document.forms['TunnelForm'].addEventListener('submit', (event) => { 
+      tunnelObj = new Tunnel()
+      tunnelObj.len_of_tunnel = event.target.len_of_tunnel
+      tunnelObj.no_of_lanes = event.target.no_of_lanes
+      tunnelObj.tunnel_name = event.target.tunnel_name
+      tunnelObj.is_operational = #(event.target.is_operational == undefined) ? false : true
+      console.log(tunnelObj)
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(tunnelObj) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 

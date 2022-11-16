@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', tunnels_controllers.tunnel_view_all_Page);
 
 /* CREATE a new Tunnel obj. */
-router.post('/create', tunnels_controllers.tunnel_view_all_Page);
+router.get('/create', tunnels_controllers.tunnel_create_Page);
 
 // PUT/UPDATE request to update Tunnel.  
 router.put('/update/:id', tunnels_controllers.tunnel_update_put); 
