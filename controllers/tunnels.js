@@ -122,13 +122,26 @@ exports.tunnel_create_Page =  function(req, res) {
     } 
 }; 
 
-// Handle building the view for updating a costume. 
+// Handle building the view for updating a tunnel. 
 // query provides the id 
 exports.tunnel_update_Page =  async function(req, res) { 
     console.log("update view for item "+req.query.id) 
     try{ 
         let result = await Tunnel.findById(req.query.id)
         res.render('tunnelupdate', { title: 'Tunnel Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle a delete one view with id from query 
+exports.tunnel_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Tunnel.findById(req.query.id) 
+        res.render('tunneldelete', { title: 'Tunnel Delete', toShow: result }); 
     } 
     catch(err){ 
         res.status(500) 

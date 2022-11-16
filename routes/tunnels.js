@@ -15,7 +15,7 @@ router.get('/update', tunnels_controllers.tunnel_update_Page);
 router.get('/detail', tunnels_controllers.tunnel_view_one_Page); 
 
 // DELETE request for one Tunnel. 
-router.delete('/delete/:id', tunnels_controllers.tunnel_detail); 
+router.get('/delete', tunnels_controllers.tunnel_delete_Page); 
 
 // router.get('/', function(req, res, next) {
 //   res.render('tunnels', { title: 'Search Results' });

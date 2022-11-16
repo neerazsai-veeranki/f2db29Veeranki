@@ -1,0 +1,58 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+  - let tunnelid = toShow._id 
+  - let lenOfTunnel = toShow.len_of_tunnel 
+  - let noOfLanes = toShow.no_of_lanes 
+  - let tunnelName = toShow.tunnel_name 
+  - let isOperational = toShow.is_operational 
+  - let actionid = "/resource/tunnels/" + tunnelid 
+
+    script let actionid = "#{actionid}" 
+    div 
+      div.row 
+        div(class='tunnelAttr') Tunnel ID is: 
+        div #{tunnelid} 
+      div.row 
+        div(class='tunnelAttr') Tunnel Length is (in Miles): 
+        div #{lenOfTunnel} 
+      div.row 
+        div(class='tunnelAttr') No of Lanes in the Tunnel: 
+        div #{noOfLanes} 
+      div.row 
+        div(class='tunnelAttr') Tunnel Name is: 
+        div #{tunnelName}
+      div.row 
+        div(class='tunnelAttr') Tunnel Operational Status is: 
+        div #{isOperational}
+ 
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
+ 
+  script. 
+    function cancel() { 
+      // Go back to the home page for the costume collection 
+      window.location.href='/tunnels' 
+    } 
+  script. 
+    function deleteOnid() { 
+      console.log("starting delete") 
+      // delete first 
+      fetch(actionid, { 
+        method: 'DELETE' 
+      }).then((resp) => { 
+        return resp.json(); //or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Delete succeded") 
+        window.location.href='/tunnels' 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Delete failed " + error ) 
+      }); 
+    } 
