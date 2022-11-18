@@ -5,19 +5,21 @@ block content
 
   - var items = results
 
-  div(class="row row-style-head")
-    div(class="col-sm-2 col-style") <b>Tunnel Length (in miles)</b>
-    div(class="col-sm-2 col-style") <b>No of Lanes</b>
-    div(class="col-sm-2 col-style") <b>Tunnel Name</b>
-    div(class="col-sm-2 col-style") <b>Is Operational</b>
-
-  mixin list_div
-    each item,i in items
-      div(class="row row-style", onClick=`buy(${i})`)
-        div(class="col-sm-2 col-style")=item.len_of_tunnel
-        div(class="col-sm-2 col-style")=item.no_of_lanes
-        div(class="col-sm-2 col-style")=item.tunnel_name
-        div(class="col-sm-2 col-style")=item.is_operational
+  div(class="container-fluid") 
+    div(class="row row-style-head")
+      div(class="col-sm-2 col-style") <b>Tunnel Length (in miles)</b>
+      div(class="col-sm-2 col-style") <b>No of Lanes</b>
+      div(class="col-sm-2 col-style") <b>Tunnel Name</b>
+      div(class="col-sm-2 col-style") <b>Is Operational</b>
+    mixin list_div
+      each item,i in items
+        - let destination = `dispatch(\"/tunnels/update?id=${item._id}\")`
+        div(class="row row-style")
+          div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.len_of_tunnel
+          div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.no_of_lanes
+          div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.tunnel_name
+          div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.is_operational
+          button.btn(class="btn-primary col-sm-2", onclick= destination) Update 
   
   div(class="container-fluid")
     +list_div
@@ -27,3 +29,8 @@ block content
       console.log(i)
       alert(`You purchased item ${i+1}`);
     }
+  
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
