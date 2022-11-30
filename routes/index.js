@@ -29,7 +29,6 @@ router.post('/register', function(req, res) {
         return res.render('register', { title: 'Registration',  
                    message: 'Existing User', account : req.body.username }) 
       } 
-      console.log(req.body.password)
       let newAccount = new Account({ username : req.body.username, password: req.body.password }); 
       Account.register(newAccount, req.body.password, function(err, user){ 
         if (err) { 
@@ -51,7 +50,9 @@ router.get('/login', function(req, res) {
 }); 
  
 router.post('/login', passport.authenticate('local'), function(req, res) { 
-    res.redirect('/'); 
+  if(req.session.returnTo) 
+    res.redirect(req.session.returnTo); 
+  res.redirect('/'); 
 }); 
  
 router.get('/logout', function(req, res) { 

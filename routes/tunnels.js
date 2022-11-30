@@ -2,6 +2,17 @@ var express = require('express');
 var tunnels_controllers = require('../controllers/tunnels')
 var router = express.Router();
 
+// A little function to check if we have an authorized user and continue on 
+// or 
+// redirect to login. 
+const secured = (req, res, next) => { 
+    if (req.user){ 
+      return next(); 
+    } 
+    req.session.returnTo = req.originalUrl; 
+    res.redirect("/login"); 
+  } 
+
 /* GET Tunnels. */
 router.get('/', tunnels_controllers.tunnel_view_all_Page);
 
@@ -9,7 +20,7 @@ router.get('/', tunnels_controllers.tunnel_view_all_Page);
 router.get('/create', tunnels_controllers.tunnel_create_Page);
 
 // PUT/UPDATE request to update Tunnel.  
-router.get('/update', tunnels_controllers.tunnel_update_Page); 
+router.get('/update', secured, tunnels_controllers.tunnel_update_Page); 
 
 // GET request for one Tunnel. 
 router.get('/detail', tunnels_controllers.tunnel_view_one_Page); 

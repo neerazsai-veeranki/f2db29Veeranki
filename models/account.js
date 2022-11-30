@@ -8,9 +8,6 @@ const accountSchema = new Schema({
 }); 
 accountSchema.methods.validPassword = function( pwd ) {
     // EXAMPLE CODE!
-    console.log(this.password)
-    console.log(this)
-    console.log(pwd)
     return ( this.password === pwd );
 };
 
