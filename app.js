@@ -20,6 +20,7 @@ passport.deserializeUser(Account.deserializeUser());
 
 passport.use(new LocalStrategy(function(username, password, done) { 
     Account.findOne({ username: username }, function (err, user) { 
+      console.log(password)
       if (err) { return done(err); } 
       if (!user) { 
         return done(null, false, { message: 'Incorrect username.' }); 

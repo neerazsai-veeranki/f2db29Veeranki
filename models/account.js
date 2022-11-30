@@ -6,7 +6,14 @@ const accountSchema = new Schema({
     username: String, 
     password: String 
 }); 
- 
+accountSchema.methods.validPassword = function( pwd ) {
+    // EXAMPLE CODE!
+    console.log(this.password)
+    console.log(this)
+    console.log(pwd)
+    return ( this.password === pwd );
+};
+
 accountSchema.plugin(passportLocalMongoose); 
  
 // We export the Schema to avoid attaching the model to the 
