@@ -5,6 +5,9 @@ block content
 
   - var items = results
 
+  button.btn(class="btn-primary col-sm-2", onclick= `dispatch(\"/tunnels/create\")`) Create 
+
+
   div(class="container-fluid") 
     div(class="row row-style-head")
       div(class="col-sm-2 col-style") <b>Tunnel Length (in miles)</b>
@@ -13,13 +16,17 @@ block content
       div(class="col-sm-2 col-style") <b>Is Operational</b>
     mixin list_div
       each item,i in items
-        - let destination = `dispatch(\"/tunnels/update?id=${item._id}\")`
+        - let updateDestination = `dispatch(\"/tunnels/update?id=${item._id}\")`
+        - let detailDestination = `dispatch(\"/tunnels/detail?id=${item._id}\")`
+        - let deleteDestination = `dispatch(\"/tunnels/delete?id=${item._id}\")`
         div(class="row row-style")
           div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.len_of_tunnel
           div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.no_of_lanes
           div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.tunnel_name
           div(class="col-sm-2 col-style", onClick=`buy(${i})`)=item.is_operational
-          button.btn(class="btn-primary col-sm-2", onclick= destination) Update 
+          button.btn(class="btn-primary col-sm-1", onclick= detailDestination) Detail 
+          button.btn(class="btn-primary col-sm-1", onclick= updateDestination) Update 
+          button.btn(class="btn-primary col-sm-1", onclick= deleteDestination) Delete 
   
   div(class="container-fluid")
     +list_div
